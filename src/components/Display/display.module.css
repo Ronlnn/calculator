@@ -16,4 +16,8 @@ input {
   font-size: 1.2rem;
   border: 1px solid #fd9910;
   border-radius: 15px;
+  &:focus {
+    outline: none;
+    border: 2px solid #fd9910;
+  }
 }

@@ -1,33 +1,19 @@
-import React, { type FC } from "react";
+import React, { type FC, useState } from "react";
 import styles from "./calculator.module.css";
 import Display from "../Display/Display";
+import Keyboard from "../Keyboard/Keyboard";
 
 const Calculator: React.FC = () => {
+  const [input, setInput] = useState("");
+
+  const handleInput = e => {
+    setInput(input => input + e);
+    console.log(input);
+  };
   return (
     <div className={styles.calculator}>
-      <Display />
-      <div className={styles.container}>
-        <button>AC</button>
-        <button>+/-</button>
-        <button>%</button>
-        <button className={styles.right}>/</button>
-        <button>7</button>
-        <button>8</button>
-        <button>9</button>
-        <button className={styles.right}>*</button>
-        <button>4</button>
-        <button>5</button>
-        <button>6</button>
-        <button className={styles.right}>-</button>
-        <button>1</button>
-        <button>2</button>
-        <button>3</button>
-        <button className={styles.right}>+</button>
-        <button>Sun</button>
-        <button>0</button>
-        <button>,</button>
-        <button className={styles.right}>=</button>
-      </div>
+      <Display showInput={input} />
+      <Keyboard handleInput={handleInput} />
     </div>
   );
 };

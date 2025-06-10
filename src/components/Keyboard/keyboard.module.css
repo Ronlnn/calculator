@@ -1,0 +1,9 @@
+.keyboard {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  height: auto;
+  color: #F3F3F3;
+}

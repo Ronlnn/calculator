@@ -1,0 +1,13 @@
+
+button{
+  width: 25%;
+  height: 40px;
+  border-radius: 15px;
+  color: black;
+  background-color: #F3F3F3;
+}
+
+.orange{
+  background-color: #FD9910;
+  color: white;
+}
