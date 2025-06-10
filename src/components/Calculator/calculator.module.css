@@ -1,0 +1,24 @@
+.calculator {
+  width: 25%;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  height: auto;
+  color: #F3F3F3;
+}
+button{
+  width: 25%;
+  border-radius: 15px;
+  color: black;
+  background-color: #F3F3F3;
+}
+
+.right{
+  background-color: #FD9910;
+  color: white;
+}
