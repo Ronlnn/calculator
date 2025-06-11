@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./keyboard.module.css";
 import Button from "../Button/Button";
 import { buttons } from "../../helpers/buttons";
@@ -9,20 +9,22 @@ interface KeyboardProps {
 }
 
 const Keyboard: React.FC<KeyboardProps> = ({ handleInput }) => {
+  const [activeKey, setActiveKey] = useState<string | null>(null);
   //Ввод клавиатуры
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      const { key } = event;
-      if (/[0-9]/.test(key)) {
+      let key = event.key;
+      if (key === "Enter") key = "=";
+      else if (key === "Escape") key = "AC";
+      else if (key === "." || key === ",") key = ",";
+
+      const isValidKey =
+        /[0-9]/.test(key) || ["+", "-", "*", "/", "=", "AC", ","].includes(key);
+
+      if (isValidKey) {
+        setActiveKey(key);
         handleInput(key);
-      } else if (["+", "-", "*", "/"].includes(key)) {
-        handleInput(key);
-      } else if (key === "Enter") {
-        handleInput("=");
-      } else if (key === "Escape") {
-        handleInput("AC");
-      } else if (key === "." || key === ",") {
-        handleInput(",");
+        setTimeout(() => setActiveKey(null), 150);
       }
     };
     window.addEventListener("keydown", handleKeyDown);
@@ -36,6 +38,7 @@ const Keyboard: React.FC<KeyboardProps> = ({ handleInput }) => {
           value={btn.value}
           handleInput={handleInput}
           isOrange={btn.isOrange}
+          active={activeKey === btn.value}
         />
       ))}
     </div>
