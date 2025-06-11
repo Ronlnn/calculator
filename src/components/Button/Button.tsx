@@ -1,7 +1,13 @@
 import React from "react";
 import styles from "./button.module.css";
 
-const Button: React.FC = ({ value, handleInput, isOrange }) => {
+interface ButtonsProps {
+  value: string;
+  handleInput: (value: string) => void;
+  isOrange?: boolean;
+}
+
+const Button: React.FC<ButtonsProps> = ({ value, handleInput, isOrange }) => {
   const buttonClass = `${styles.button} ${isOrange ? styles.orange : ""}`;
 
   return (

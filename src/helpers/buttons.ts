@@ -1,4 +1,9 @@
-export const buttons = [
+export interface ButtonsConf {
+  value: string;
+  isOrange?: boolean;
+}
+
+export const buttons: ButtonsConf[] = [
   { value: "AC" },
   { value: "+/-" },
   { value: "%" },

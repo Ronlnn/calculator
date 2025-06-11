@@ -24,7 +24,7 @@ export const numToStr = (num: number) => {
   return num.toString().replace(/\./g, ",");
 };
 
-export const formatNumber = (value: number | string, maxLength = 10) => {
+export const formatNumber = (value: number | string, maxLength = 25) => {
   const [int, dec] = value.toString().split(".");
   const grouped = int.replace(/\B(?=(\d{3})+(?!\d))/g, " ");
   const formatted = dec ? `${grouped}.${dec}` : grouped;

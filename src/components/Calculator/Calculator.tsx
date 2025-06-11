@@ -11,9 +11,9 @@ import {
 
 const Calculator: React.FC = () => {
   const [input, setInput] = useState("");
+  const [displayValue, setDisplayValue] = useState("");
   const [prevValue, setPrevValue] = useState<number | null>(null);
   const [operator, setOperator] = useState<string | null>(null);
-  const [displayValue, setDisplayValue] = useState("");
 
   const handleInput = (event: string) => {
     //Сброс
@@ -92,7 +92,7 @@ const Calculator: React.FC = () => {
   return (
     <div className={styles.calculator}>
       <Display showInput={formatNumber(displayValue || input)} />
-      <Keyboard handleInput={handleInput} input={input} />
+      <Keyboard handleInput={handleInput} />
     </div>
   );
 };

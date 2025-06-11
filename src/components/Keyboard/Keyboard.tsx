@@ -2,8 +2,13 @@ import React, { useEffect } from "react";
 import styles from "./keyboard.module.css";
 import Button from "../Button/Button";
 import { buttons } from "../../helpers/buttons";
+import type { ButtonsConf } from "../../helpers/buttons";
 
-const Keyboard: React.FC = ({ handleInput, input }) => {
+interface KeyboardProps {
+  handleInput: (value: string) => void;
+}
+
+const Keyboard: React.FC<KeyboardProps> = ({ handleInput }) => {
   //Ввод клавиатуры
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -22,10 +27,10 @@ const Keyboard: React.FC = ({ handleInput, input }) => {
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [input]);
+  }, [handleInput]);
   return (
     <div className={styles.keyboard}>
-      {buttons.map(btn => (
+      {buttons.map((btn: ButtonsConf) => (
         <Button
           key={btn.value}
           value={btn.value}
