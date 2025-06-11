@@ -18,8 +18,6 @@ const Keyboard: React.FC = ({ handleInput, input, setInput }) => {
         handleInput("AC");
       } else if (key === "." || key === ",") {
         handleInput(",");
-      } else if (key === "Backspace") {
-        setInput(input => input.slice(0, -1));
       }
     };
     window.addEventListener("keydown", handleKeyDown);
