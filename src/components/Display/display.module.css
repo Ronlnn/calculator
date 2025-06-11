@@ -13,7 +13,7 @@ input {
   width: calc(100% - 20px);
   margin-bottom: 5px;
   padding: 5px;
-  font-size: 1.2rem;
+  font-size: 0.8rem;
   border: 1px solid #fd9910;
   border-radius: 15px;
   &:focus {

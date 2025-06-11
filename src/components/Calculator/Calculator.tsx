@@ -2,7 +2,12 @@ import React, { type FC, useState } from "react";
 import styles from "./calculator.module.css";
 import Display from "../Display/Display";
 import Keyboard from "../Keyboard/Keyboard";
-import { calculate, strToNum, numToStr } from "../../helpers/calculate";
+import {
+  calculate,
+  strToNum,
+  numToStr,
+  formatNumber,
+} from "../../helpers/calculate";
 
 const Calculator: React.FC = () => {
   const [input, setInput] = useState("");
@@ -19,7 +24,25 @@ const Calculator: React.FC = () => {
       setOperator(null);
       return;
     }
-
+    // Изменение знака
+    if (event === "+/-") {
+      if (input) {
+        const num = strToNum(input) * -1;
+        const newNum = numToStr(num);
+        setInput(newNum);
+        setDisplayValue(prev => `${prev} ${newNum}`);
+      }
+      return;
+    }
+    //Процент
+    if (event === "%") {
+      if (input) {
+        const num = strToNum(input) / 100;
+        const newNum = numToStr(num);
+        setInput(newNum);
+        setDisplayValue(prev => `${prev} ${newNum}`);
+      }
+    }
     // Дробные
     if (event === "," || event === ".") {
       if (!input.includes(",")) {
@@ -28,7 +51,6 @@ const Calculator: React.FC = () => {
       }
       return;
     }
-
     // Базовые операторы
     if (["+", "-", "*", "/"].includes(event)) {
       if (input) {
@@ -41,14 +63,12 @@ const Calculator: React.FC = () => {
           setPrevValue(result);
           setInput(numToStr(result));
         }
-
         setOperator(event);
         setDisplayValue(prev => `${prev} ${event} `);
         setInput("");
       }
       return;
     }
-
     // Результат
     if (event === "=") {
       if (prevValue !== null && operator && input) {
@@ -61,7 +81,6 @@ const Calculator: React.FC = () => {
       }
       return;
     }
-
     // Цифры
     setInput(prev => {
       if (prev === "0" && event === "0") return prev;
@@ -72,8 +91,8 @@ const Calculator: React.FC = () => {
 
   return (
     <div className={styles.calculator}>
-      <Display showInput={displayValue || input} />
-      <Keyboard handleInput={handleInput} />
+      <Display showInput={formatNumber(displayValue || input)} />
+      <Keyboard handleInput={handleInput} input={input} />
     </div>
   );
 };
