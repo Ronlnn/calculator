@@ -2,7 +2,7 @@ import React, { type FC, useState } from "react";
 import styles from "./calculator.module.css";
 import Display from "../Display/Display";
 import Keyboard from "../Keyboard/Keyboard";
-import { calculate } from "../../helpers/calculate";
+import { calculate, strToNum, numToStr } from "../../helpers/calculate";
 
 const Calculator: React.FC = () => {
   const [input, setInput] = useState("");
@@ -11,42 +11,69 @@ const Calculator: React.FC = () => {
   const [displayValue, setDisplayValue] = useState("");
 
   const handleInput = (event: string) => {
+    //Сброс
     if (event === "AC") {
       setInput("");
       setDisplayValue("");
       setPrevValue(null);
       setOperator(null);
-    } else if (["+", "-", "*", "/"].includes(event)) {
-      if (prevValue === null) {
-        setPrevValue(parseFloat(input));
-      } else if (operator) {
-        const currentValue = parseFloat(input);
-        const result = calculate(prevValue, currentValue, operator);
-        setPrevValue(result);
-        setInput(result.toString());
+      return;
+    }
+
+    // Дробные
+    if (event === "," || event === ".") {
+      if (!input.includes(",")) {
+        setInput(prev => (prev === "" ? "0," : prev + ","));
+        setDisplayValue(prev => (prev === "" ? "0," : prev + ","));
       }
-      setOperator(event);
-      setDisplayValue(`${input}${event}`);
-      setInput("");
-    } else if (event === "=") {
+      return;
+    }
+
+    // Базовые операторы
+    if (["+", "-", "*", "/"].includes(event)) {
+      if (input) {
+        const currentEvent = strToNum(input);
+
+        if (prevValue === null) {
+          setPrevValue(currentEvent);
+        } else if (operator) {
+          const result = calculate(prevValue, currentEvent, operator);
+          setPrevValue(result);
+          setInput(numToStr(result));
+        }
+
+        setOperator(event);
+        setDisplayValue(prev => `${prev} ${event} `);
+        setInput("");
+      }
+      return;
+    }
+
+    // Результат
+    if (event === "=") {
       if (prevValue !== null && operator && input) {
-        const currentValue = parseFloat(input);
-        const result = calculate(prevValue, currentValue, operator);
-        setDisplayValue(prevValue => `${prevValue}=${result}`);
-        setInput(result.toString());
+        const currentEvent = strToNum(input);
+        const result = calculate(prevValue, currentEvent, operator);
+        setDisplayValue(prev => `${prev} = ${numToStr(result)}`);
+        setInput(numToStr(result));
         setPrevValue(null);
         setOperator(null);
       }
-    } else {
-      setInput(input => input + event);
-      setDisplayValue(prevValue => prevValue + event);
+      return;
     }
+
+    // Цифры
+    setInput(prev => {
+      if (prev === "0" && event === "0") return prev;
+      return prev + event;
+    });
+    setDisplayValue(prev => prev + event);
   };
 
   return (
     <div className={styles.calculator}>
       <Display showInput={displayValue || input} />
-      <Keyboard handleInput={handleInput} input={input} />
+      <Keyboard handleInput={handleInput} />
     </div>
   );
 };

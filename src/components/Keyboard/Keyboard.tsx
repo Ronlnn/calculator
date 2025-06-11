@@ -3,7 +3,7 @@ import styles from "./keyboard.module.css";
 import Button from "../Button/Button";
 import { buttons } from "../../helpers/buttons";
 
-const Keyboard: React.FC = ({ handleInput, input, setInput }) => {
+const Keyboard: React.FC = ({ handleInput, input }) => {
   //Ввод клавиатуры
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
