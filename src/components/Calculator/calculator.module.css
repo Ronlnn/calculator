@@ -3,3 +3,29 @@
   height: 45%;
 }
 
+@media (max-width: 1024px) {
+  .calculator {
+    width: 30%;
+  }
+}
+@media (max-width: 800px) {
+  .calculator {
+    width: 40%;
+  }
+}
+@media (max-width: 600px) {
+  .calculator {
+    width: 55%;
+  }
+}
+@media (max-width: 400px) {
+  .calculator {
+    width: 60%;
+  }
+}
+@media (max-width: 320px) {
+  .calculator {
+    width: 80%;
+    font-size: small;
+  }
+}
