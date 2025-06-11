@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styles from "./button.module.css";
+import { useTheme } from "../../context/ThemeContext";
 
 interface ButtonsProps {
   value: string;
@@ -18,11 +19,18 @@ const Button: React.FC<ButtonsProps> = ({
   const buttonClass = `${styles.button} ${isOrange ? styles.orange : ""} ${
     active ? styles.active : ""
   }${activeBtn ? styles.active : ""}`;
+  const { toggleTheme } = useTheme();
 
   const handleClick = () => {
-    setActiveBtn(true);
-    handleInput(value);
-    setTimeout(() => setActiveBtn(false), 150);
+    if (value === "☀️/🌙") {
+      toggleTheme();
+      setActiveBtn(true);
+      setTimeout(() => setActiveBtn(false), 150);
+    } else {
+      setActiveBtn(true);
+      handleInput(value);
+      setTimeout(() => setActiveBtn(false), 150);
+    }
   };
   return (
     <button className={buttonClass} onClick={handleClick}>

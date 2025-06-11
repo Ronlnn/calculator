@@ -5,19 +5,26 @@
   background-color: #f3f3f3;
   padding: 10px;
   border-radius: 15px;
-
-  /* margin-bottom: 10px; */
 }
 
 input {
   width: calc(100% - 20px);
   margin-bottom: 5px;
   padding: 5px;
-  font-size: 0.8rem;
+  font-size: medium;
   border: 1px solid #fd9910;
   border-radius: 15px;
   &:focus {
     outline: none;
     border: 2px solid #fd9910;
   }
+}
+
+[data-theme="dark"] .display {
+  background-color: #333333;
+}
+
+[data-theme="dark"] input {
+  background-color: #333333;
+  color: white;
 }
