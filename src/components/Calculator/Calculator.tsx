@@ -1,4 +1,4 @@
-import React, { type FC, useState } from "react";
+import React, { useState } from "react";
 import styles from "./calculator.module.css";
 import Display from "../Display/Display";
 import Keyboard from "../Keyboard/Keyboard";
